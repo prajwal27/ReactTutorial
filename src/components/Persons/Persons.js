@@ -10,8 +10,12 @@ class Persons extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log('[Persons.js] shouldComponentUpdate');
-    return true;
-  }
+    if(nextProps.persons !== this.props.persons) // works because values being copied into new storage in app.js not just tweaked old ones
+    {
+      return true; 
+    }
+    return false;
+  } //paint flashing to see realDOM and reactDOM difference
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log('[Persons.js] getSnapshotBeforeUpdate');
@@ -21,6 +25,11 @@ class Persons extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('[Persons.js] componentDidUpdate');
     console.log(snapshot);
+  }
+
+  // clean up work
+  componentWillUnmount() {
+    console.log('[Persons.js] componentWillUnmount');
   }
 
   render() {

@@ -1,7 +1,34 @@
-import React from 'react';
+import React,  {useEffect} from 'react';
 import customStyles from './Cockpit.css';
 
-const cockpit = (props) => {
+const Cockpit = (props) => {
+
+  useEffect(() => {
+    // for every render
+    console.log('[Cockpit.js] useEffect');
+    // http request
+    // componentDidMount and componentDidUpdate in one go
+
+    const timer = setTimeout(() => {
+      alert('Saved data to cloud!');
+    }, 3000)
+
+    return () => {
+      //clearTimeout(timer);
+      console.log('[Cockpit.js] clean up work in useEffect')
+    }
+  }, []); //or [props.persons] && [] means useEffect will work only when it's mounted for first time and unmounted
+
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+
+    return () => {
+      console.log('[Cockpit.js] clean up work in 2nd useEffect')
+    }
+  }); // calling on every update cycle
+
+  // as many useEffects as we want
+
     const classes = [];
     let btnClass = '';
 
@@ -29,4 +56,4 @@ const cockpit = (props) => {
     );
 };
 
-export default cockpit;
+export default Cockpit;
