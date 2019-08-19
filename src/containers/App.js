@@ -22,14 +22,42 @@ import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component{
 
-  state = {
-    persons:  [
-      {id: '1', name:'1', age: 1},
-      {id: '2',name:'2', age: 2},
-      {id: '3',name:'3', age: 3}
-    ],
-    show : false
-  } 
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+    this.state = {
+      persons:  [
+        {id: '1', name:'1', age: 1},
+        {id: '2',name:'2', age: 2},
+        {id: '3',name:'3', age: 3}
+      ],
+      show : false
+    }
+  }
+
+  static getDerivedStateFromProps(props, state){
+    console.log('[App.js] getDerivedStateFromProps',props);
+    return state;
+  }
+
+  /* componentWillMount() {
+    console.log('[App.js] componentWillMount');
+  } */
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate');
+    return true;// if false, prevents the toggle from working
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('[App.js] componentDidUpdate');
+    
+  }
+   
 
   switchNameHandler = (newName) => {
     console.log('button clicked');
@@ -90,7 +118,7 @@ class App extends Component{
 
   
   render() {
-
+    console.log('[App.js] render');
     let p = null;
     if(this.state.show)
     {
@@ -105,6 +133,7 @@ class App extends Component{
     return (
       <div className={customStyles.App}>
         <Cockpit 
+        title = {this.props.appTitle}
         showPersons={this.state.show}
         persons = {this.state.persons}
         clicked = {this.togglePersonHandler}/>

@@ -20,7 +20,7 @@ const cockpit = (props) => {
 
     return ( 
     <div className={customStyles.Cockpit}>
-        <h1> Hey there!</h1>
+        <h1> Hey there! from {props.title}</h1>
         <p className={classes.join(' ')}>Yo sup?</p>
         <button
         className={btnClass}
