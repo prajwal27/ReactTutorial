@@ -1,8 +1,11 @@
 import React , { Component, useState } from 'react';
 //import logo from './logo.svg';
-import './App.css';
-import Person from './Person/Person.js';
-import Radium ,{StyleRoot} from 'radium';
+import customStyles from './App.css';
+import Person from '../components/Persons/Person/Person.js';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
+//import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+//import Radium ,{StyleRoot} from 'radium';
 
 /* function App() {
   return (
@@ -89,8 +92,9 @@ class App extends Component{
 
   
   render() {
+    let btnClass = '';
     // inline styling
-    const style = {
+    /*const style = {
       backgroundColor: 'green',
       color: 'white',
       font: 'inherit',
@@ -100,8 +104,8 @@ class App extends Component{
       /* ':hover': {
         backgroundColor: 'lightgreen',
         color: 'black'
-      } */
-    };
+      } 
+    };*/
     //console.log("render" + this.state.show)
     let p = null;
 
@@ -109,14 +113,21 @@ class App extends Component{
     {//console.log("render2" + this.state.show)
       p = (
         <div>
-          {this.state.persons.map((per,index) => {
-            return <Person 
+          <Persons 
+          persons = {this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler2}/>
+
+          {/* this.state.persons.map((per,index) => {
+            return <Person // key always given to higher heirarchical component 
             key = {per.id}
             changed = {(event) => this.nameChangedHandler2(event,per.id)}
             click = {() => this.deletePersonHandler(index)}
             name={per.name} 
-            age={per.age}/>
-          })}
+            age={per.age}/> //</ErrorBoundary>
+          }) */}
+
+
         {/* <Person 
         name = {this.state.persons[0].name} 
         age ={this.state.persons[0].age} />
@@ -133,33 +144,43 @@ class App extends Component{
       </div>
       );
 
-      style.backgroundColor = 'red';
+      //style.backgroundColor = 'red';
+      
       /* style[':hover'] = {
         backgroundColor: 'salmon',
         color: 'black'
       }; */
+
+      btnClass = customStyles.Red;
     }
 
     //let classes = ['red','bold'].join(' ');
-    const classes = [];
+    // in cockpit
+    /* const classes = [];
     if( this.state.persons.length<=2)
     {
-      classes.push('red'); // classes = ['red']
+      classes.push(customStyles.red); // classes = ['red']
     }
     if( this.state.persons.length<=1)
     {
-      classes.push('bold') // classes = ['red', 'bold']
-    }
+      classes.push(customStyles.bold) // classes = ['red', 'bold']
+    } */
     return (
       
-      <div className={"App"}>
-      <h1> Hey there!</h1>
+      <div className={customStyles.App}>
+      <Cockpit 
+      showPersons={this.show}
+      persons = {this.state.persons}></Cockpit>  
+      {// before cockpit
+        /* <h1> Hey there!</h1>
       <p className={classes.join(' ')}>Yo sup?</p>
       <button
-      style={style}
-      onClick={ () => this.togglePersonHandler() }>Switch button</button>
+      className={btnClass}
+      //style={style}
+      onClick={ () => this.togglePersonHandler() }>Switch button</button> */}
       {p}
-      
+    
+
       {
         /* this.state.show ?
       <div>
@@ -185,7 +206,7 @@ class App extends Component{
       
     </div>
     
-    )
+    );
   }
 
 }
