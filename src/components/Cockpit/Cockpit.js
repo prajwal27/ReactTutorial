@@ -5,7 +5,7 @@ const cockpit = (props) => {
     const classes = [];
     let btnClass = '';
 
-    if(props.show)
+    if(props.showPersons)
     {
         btnClass = customStyles.Red;
     }
@@ -24,9 +24,7 @@ const cockpit = (props) => {
         <p className={classes.join(' ')}>Yo sup?</p>
         <button
         className={btnClass}
-        //style={style}
-        onClick={ () => this.togglePersonHandler() }>Switch button</button>
-        {/*p*/}
+        onClick={props.clicked}>Switch button</button>
     </div>
     );
 };

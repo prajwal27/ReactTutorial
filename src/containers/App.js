@@ -67,8 +67,6 @@ class App extends Component{
     //const person = Object.assign({},this.state.persons[personIndex]);
 
     persons[personIndex] = person;
-    
-
     this.setState({
       persons:persons
     });
@@ -92,120 +90,27 @@ class App extends Component{
 
   
   render() {
-    let btnClass = '';
-    // inline styling
-    /*const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      curson: 'pointer',
-      /* ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      } 
-    };*/
-    //console.log("render" + this.state.show)
-    let p = null;
 
+    let p = null;
     if(this.state.show)
-    {//console.log("render2" + this.state.show)
+    {
       p = (
-        <div>
           <Persons 
           persons = {this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.nameChangedHandler2}/>
-
-          {/* this.state.persons.map((per,index) => {
-            return <Person // key always given to higher heirarchical component 
-            key = {per.id}
-            changed = {(event) => this.nameChangedHandler2(event,per.id)}
-            click = {() => this.deletePersonHandler(index)}
-            name={per.name} 
-            age={per.age}/> //</ErrorBoundary>
-          }) */}
-
-
-        {/* <Person 
-        name = {this.state.persons[0].name} 
-        age ={this.state.persons[0].age} />
-
-        <Person 
-        name = {this.state.persons[1].name}
-        age ={this.state.persons[1].age} 
-        click = {this.switchNameHandler.bind(this,'Prajwal')}
-        changed = {this.nameChangedHandler}> I love coding! </Person>
-
-        <Person
-        name = {this.state.persons[2].name}
-        age ={this.state.persons[2].age} /> */}
-      </div>
       );
-
-      //style.backgroundColor = 'red';
-      
-      /* style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }; */
-
-      btnClass = customStyles.Red;
     }
 
-    //let classes = ['red','bold'].join(' ');
-    // in cockpit
-    /* const classes = [];
-    if( this.state.persons.length<=2)
-    {
-      classes.push(customStyles.red); // classes = ['red']
-    }
-    if( this.state.persons.length<=1)
-    {
-      classes.push(customStyles.bold) // classes = ['red', 'bold']
-    } */
     return (
-      
       <div className={customStyles.App}>
-      <Cockpit 
-      showPersons={this.show}
-      persons = {this.state.persons}></Cockpit>  
-      {// before cockpit
-        /* <h1> Hey there!</h1>
-      <p className={classes.join(' ')}>Yo sup?</p>
-      <button
-      className={btnClass}
-      //style={style}
-      onClick={ () => this.togglePersonHandler() }>Switch button</button> */}
-      {p}
-    
-
-      {
-        /* this.state.show ?
-      <div>
-        <Person 
-        name = {this.state.persons[0].name} 
-        age ={this.state.persons[0].age}
-         //changed = {this.nameChangedHandler} 
-        />
-        <Person 
-        name = {this.state.persons[1].name}
-        age ={this.state.persons[1].age} 
-        click = {this.switchNameHandler.bind(this,'Prajwal')}
-        changed = {this.nameChangedHandler}> I love coding! </Person>
-
-        <Person
-        name = {this.state.persons[2].name}
-        age ={this.state.persons[2].age}
-        //changed = {this.nameChangedHandler} 
-        />
-      </div> : null */}
+        <Cockpit 
+        showPersons={this.state.show}
+        persons = {this.state.persons}
+        clicked = {this.togglePersonHandler}/>
+        {p}   
       
-
-      
-    </div>
-    
+      </div>
     );
   }
 
