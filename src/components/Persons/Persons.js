@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Person from './Person/Person';
+import AuthContext from '../../context/auth-context';
 
 class Persons extends Component {
 
@@ -36,15 +37,16 @@ class Persons extends Component {
   render() {
     console.log('[Persons.js] rendering...');
     return (
-      this.props.persons.map((per,index) => 
+      <AuthContext.Consumer>
+      {(context) => this.props.persons.map((per,index) =>  /// AuthContext.Consumer takes function  , hence it's wrapped in a function
       <Person // key always given to higher heirarchical component 
       key = {per.id}
       changed = {(event) => this.props.changed(event,per.id)}
       click = {() => this.props.clicked(index)}
       name={per.name} 
       age={per.age}/> //</ErrorBoundary>
-      )
-    );
+      )}
+      </AuthContext.Consumer>);
   }
   
 }

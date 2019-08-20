@@ -1,11 +1,16 @@
-import React,  {useEffect, useRef} from 'react';
+import React,  {useEffect, useRef, useContext} from 'react';
 import customStyles from './Cockpit.css';
+import AuthContext from '../../context/auth-context';
 
 const Cockpit = (props) => {
 
   const toggleBtnRef = useRef(null);
   //toggleBtnRef.current.click();
   // here it's  called before rendering :: therefore error
+
+  const authContext = useContext(AuthContext);
+
+  console.log('auth context in cockpit ',authContext.authenticated);
 
   useEffect(() => {
     // for every render
@@ -58,8 +63,16 @@ const Cockpit = (props) => {
         ref={toggleBtnRef}
         className={btnClass}
         onClick={props.clicked}>Switch button</button>
+
+        {/* <AuthContext.Consumer>
+          {(context) => <button onClick={context.login}>Log In</button>}
+        </AuthContext.Consumer> */}
+
+        <button onClick={authContext.login}>Log In</button>
+        
     </div>
     );
 };
 
-export default React.memo(Cockpit);
+export default React.memo(Cockpit); // same as pure component in class based components
+// pure components --- rendering only when props is changed 

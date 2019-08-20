@@ -6,6 +6,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Auxiliary';
 import withClass2 from '../hoc/WithClass2';
+import AuthContext from '../context/auth-context';
 
 //import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 //import Radium ,{StyleRoot} from 'radium';
@@ -36,7 +37,8 @@ class App extends Component{
       ],
       show : false,
       cockpit:true,
-      changeCounter:0
+      changeCounter:0,
+      authenticated: false
     }
   }
 
@@ -127,6 +129,10 @@ class App extends Component{
     });
   }
 
+  loginHandler = () => {
+    this.setState({authenticated: !this.state.authenticated});
+  }
+
   
   render() {
     console.log('[App.js] render');
@@ -137,7 +143,9 @@ class App extends Component{
           <Persons 
           persons = {this.state.persons}
           clicked={this.deletePersonHandler}
-          changed={this.nameChangedHandler2}/>
+          changed={this.nameChangedHandler2}
+          //isAuthenticated={this.state.authenticated} no need to send as context is used
+          />
       );
     }
 
@@ -169,14 +177,20 @@ class App extends Component{
           })
         }}>Remove Cockpit</button>
 
-
+        <AuthContext.Provider 
+          value = {{
+          authenticated:this.state.authenticated, 
+          login:this.loginHandler}}
+          >
         {this.state.cockpit ? <Cockpit 
         title = {this.props.appTitle}
         showPersons={this.state.show}
         personsLength = {this.state.persons.length}
         clicked = {this.togglePersonHandler}
+        //login = {this.loginHandler}
         /> : null}
         {p}   
+        </AuthContext.Provider> 
       
       </Aux>
     );
