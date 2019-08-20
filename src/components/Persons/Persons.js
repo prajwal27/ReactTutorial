@@ -8,6 +8,7 @@ class Persons extends Component {
     return state;
   }
 
+  // if checking for all props ---- use PureComponent
   shouldComponentUpdate(nextProps, nextState) {
     console.log('[Persons.js] shouldComponentUpdate');
     if(nextProps.persons !== this.props.persons) // works because values being copied into new storage in app.js not just tweaked old ones

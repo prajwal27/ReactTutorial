@@ -1,7 +1,11 @@
-import React,  {useEffect} from 'react';
+import React,  {useEffect, useRef} from 'react';
 import customStyles from './Cockpit.css';
 
 const Cockpit = (props) => {
+
+  const toggleBtnRef = useRef(null);
+  //toggleBtnRef.current.click();
+  // here it's  called before rendering :: therefore error
 
   useEffect(() => {
     // for every render
@@ -9,9 +13,10 @@ const Cockpit = (props) => {
     // http request
     // componentDidMount and componentDidUpdate in one go
 
-    const timer = setTimeout(() => {
+    /* const timer = setTimeout(() => {
       alert('Saved data to cloud!');
-    }, 3000)
+    }, 3000) */
+    toggleBtnRef.current.click();
 
     return () => {
       //clearTimeout(timer);
@@ -36,11 +41,11 @@ const Cockpit = (props) => {
     {
         btnClass = customStyles.Red;
     }
-    if( props.persons.length<=2)
+    if( props.personsLength<=2)
     {
       classes.push(customStyles.red); // classes = ['red']
     }
-    if( props.persons.length<=1)
+    if( props.personsLength<=1)
     {
       classes.push(customStyles.bold) // classes = ['red', 'bold']
     }
@@ -50,10 +55,11 @@ const Cockpit = (props) => {
         <h1> Hey there! from {props.title}</h1>
         <p className={classes.join(' ')}>Yo sup?</p>
         <button
+        ref={toggleBtnRef}
         className={btnClass}
         onClick={props.clicked}>Switch button</button>
     </div>
     );
 };
 
-export default Cockpit;
+export default React.memo(Cockpit);

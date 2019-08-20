@@ -4,6 +4,9 @@ import customStyles from './App.css';
 import Person from '../components/Persons/Person/Person.js';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import Aux from '../hoc/Auxiliary';
+import withClass2 from '../hoc/WithClass2';
+
 //import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 //import Radium ,{StyleRoot} from 'radium';
 
@@ -32,7 +35,8 @@ class App extends Component{
         {id: '3',name:'3', age: 3}
       ],
       show : false,
-      cockpit:true
+      cockpit:true,
+      changeCounter:0
     }
   }
 
@@ -96,8 +100,14 @@ class App extends Component{
     //const person = Object.assign({},this.state.persons[personIndex]);
 
     persons[personIndex] = person;
-    this.setState({
-      persons:persons
+
+    // this type used when increment is needed as using setState alone in heavy applications is not so efficient
+    this.setState((prevState, props) => {
+      return {
+        persons:persons,
+        changeCounter : prevState.changeCounter +1
+      }
+      
     });
   }
 
@@ -131,7 +141,7 @@ class App extends Component{
       );
     }
 
-    return (
+    /* return (
       <div className={customStyles.App}>
         <button onClick={() =>  {
           this.setState({
@@ -143,17 +153,37 @@ class App extends Component{
         {this.state.cockpit ? <Cockpit 
         title = {this.props.appTitle}
         showPersons={this.state.show}
-        persons = {this.state.persons}
+        personsLength = {this.state.persons.length}
         clicked = {this.togglePersonHandler}
         /> : null}
         {p}   
       
       </div>
+    ); */
+
+    return (
+      <Aux>
+        <button onClick={() =>  {
+          this.setState({
+            cockpit: !this.state.cockpit
+          })
+        }}>Remove Cockpit</button>
+
+
+        {this.state.cockpit ? <Cockpit 
+        title = {this.props.appTitle}
+        showPersons={this.state.show}
+        personsLength = {this.state.persons.length}
+        clicked = {this.togglePersonHandler}
+        /> : null}
+        {p}   
+      
+      </Aux>
     );
   }
 
 }
-export default App;
+export default withClass2(App,customStyles.App);
 
 
 //2nd part
